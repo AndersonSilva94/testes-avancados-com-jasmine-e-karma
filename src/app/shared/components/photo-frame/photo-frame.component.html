@@ -1,1 +1,10 @@
-<p>photo-frame works!</p>
+<div class="photo-frame-container">
+  <img tabindex="0" [src]="src" [alt]="description" class="photo">
+
+  <div class="like-bar">
+    <app-like-widget
+      [likes]="likes"
+      (liked)="like()"
+    ></app-like-widget>
+  </div>
+</div>
