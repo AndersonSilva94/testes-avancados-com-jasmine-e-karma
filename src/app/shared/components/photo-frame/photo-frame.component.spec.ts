@@ -55,5 +55,19 @@ describe(PhotoFrameComponent.name, () => {
     fixture.detectChanges();
     const element: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
     expect(element.textContent.trim()).toBe('1')
+  });
+
+  it(`Should update aria-label when (@Input likes) is incremented`, () => {
+    fixture.detectChanges();
+    component.likes++;
+    fixture.detectChanges();
+    const element: HTMLElement = fixture.nativeElement.querySelector('span');
+    expect(element.getAttribute('aria-label')).toBe('1: people liked')
+  });
+
+  it(`Should have aria-label with 0 (@Input likes)`, () => {
+    fixture.detectChanges();
+    const element: HTMLElement = fixture.nativeElement.querySelector('span');
+    expect(element.getAttribute('aria-label')).toBe('0: people liked')
   })
 });
