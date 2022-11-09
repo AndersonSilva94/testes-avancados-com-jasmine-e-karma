@@ -11,13 +11,13 @@ export class PhotoBoardComponent implements OnChanges {
 
   public rows: any[][] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if(changes.photos) {
       this.rows = this.groupColumns(changes.photos.currentValue);
     }
   }
 
-  groupColumns(photos: Photo[]): any[][] {
+  private groupColumns(photos: Photo[]): any[][] {
     const newRows = [];
 
     for(let i = 0; i < photos.length; i += 4) {
