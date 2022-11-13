@@ -30,9 +30,28 @@ describe(PhotoListComponent.name, () => {
   });
 
   it(`(D) Should display board when data arrives`, () => {
-    fixture.detectChanges();
     const photos = buildPhotoList();
-    spyOn(service, 'getPhotos')
-      .and.returnValue(of(photos))
+    spyOn(service, 'getPhotos').and.returnValue(of(photos));
+
+    fixture.detectChanges(); // chamar o onInit só depois de modificar o serviço
+
+    const board = fixture.nativeElement.querySelector('app-photo-board');
+    const loader = fixture.nativeElement.querySelector('.loader');
+
+    expect(board).withContext('Should display board').not.toBeNull();
+    expect(loader).withContext('Should not display loader').toBeNull();
+  })
+
+  it(`(D) Should display loader while waiting for data`, () => {
+    const photos = buildPhotoList();
+    spyOn(service, 'getPhotos').and.returnValue(null);
+
+    fixture.detectChanges(); // chamar o onInit só depois de modificar o serviço
+
+    const board = fixture.nativeElement.querySelector('app-photo-board');
+    const loader = fixture.nativeElement.querySelector('.loader');
+
+    expect(board).withContext('Should not display board').toBeNull();
+    expect(loader).withContext('Should display loader').not.toBeNull();
   })
 });
