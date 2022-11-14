@@ -32,6 +32,8 @@ describe(PhotoBoardService.name, () => {
     httpController = TestBed.inject(HttpTestingController)
   });
 
+  afterEach(() => httpController.verify()); // serve para verificar que requisições que não tiveram respostas elaboradas
+
   it(`#${PhotoBoardService.prototype.getPhotos.name} should return list photos with description in uppercase`, done => {
     service.getPhotos().subscribe(photos => {
       expect(photos[0].description).toBe('EXAMPLE 1');
@@ -39,6 +41,6 @@ describe(PhotoBoardService.name, () => {
       done();
     }); // se inscrever primeiro, ele vai esperar o que vai acontecer com o serviço
 
-    httpController.expectOne(mockData.api).flush(mockData.data);
+    httpController.expectOne(mockData.api).flush(mockData.data); // esse carinha que vai disparar a chamada pra requisição
   })
 })
